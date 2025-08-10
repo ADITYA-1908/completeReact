@@ -12,7 +12,6 @@ const IntUR = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
       <h1 className="text-4xl font-bold mb-6 text-blue-600">Count: {count}</h1>
-
       <div className="flex space-x-4 mb-6">
         <button
           onClick={() => setcount((prev) => prev + 1)}

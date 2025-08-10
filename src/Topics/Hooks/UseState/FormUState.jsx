@@ -37,7 +37,7 @@ const FormUState = () => {
         className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-lg space-y-6 transition duration-300"
       >
         <h2 className="text-2xl font-semibold text-center text-blue-800">
-          📋 Registration Form
+          Registration Form
         </h2>
 
         {/* Name Input */}

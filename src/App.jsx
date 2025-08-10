@@ -51,6 +51,7 @@ import DropDownSearch from "./Topics/API/DropDrownSearch.jsx";
 import InputSearch from "./Topics/API/InputSearch.jsx";
 
 //Redux Toolkit
+import SotingApiData from "./Topics/API/SotingApiData.jsx";
 import Counter from "./Topics/Redux/Components/Counter/Counter.jsx";
 import Todos from "./Topics/Redux/Components/TodoList/Todos.jsx";
 
@@ -109,6 +110,7 @@ function App() {
         <Route path="/api-fetch" element={<ApiFetch />} />
         <Route path="/input-search" element={<InputSearch />} />
         <Route path="/dropdown-search" element={<DropDownSearch />} />
+        <Route path="/sorting-data" element={<SotingApiData />} />
 
         {/* Redux Toolkit */}
         <Route path="/todos" element={<Todos />} />

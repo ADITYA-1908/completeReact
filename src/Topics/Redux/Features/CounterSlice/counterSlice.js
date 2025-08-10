@@ -1,11 +1,11 @@
-// src/features/counter/counterSlice.js
+// src/Features/CounterSlice/counterSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   value: 0,
 };
 
-export const counterSlice = createSlice({
+const counterSlice = createSlice({
   name: "counter",
   initialState,
   reducers: {

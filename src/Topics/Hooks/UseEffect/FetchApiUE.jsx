@@ -5,14 +5,15 @@ const FetchAPIUE = () => {
   const [product, setProduct] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("https://fakestoreapi.com/products")
-      .then((res) => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get("https://fakestoreapi.com/products");
         setProduct(res.data);
-      })
-      .catch((e) => {
-        console.error("Fetch API Error:", e);
-      });
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    fetchData();
   }, [product]);
 
   return (

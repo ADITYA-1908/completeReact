@@ -1,4 +1,4 @@
-import useFetch from "./useFetch.jsx";
+import useFetch from "./UseFetch";
 
 const UseFetchParent = () => {
   const { data, loading } = useFetch("https://fakestoreapi.com/products");

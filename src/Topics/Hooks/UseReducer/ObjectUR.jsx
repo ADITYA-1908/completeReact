@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 
 const initialState = {
   name: "",
@@ -22,6 +22,7 @@ const reducer = (state, action) => {
 
 const FormUseReducer = () => {
   const [formData, dispatch] = useReducer(reducer, initialState);
+  const [submittedData, setSubmittedData] = useState([]);
 
   const languages = ["ReactJS", "NextJS", "VueJS", "Node"];
   const cities = [
@@ -39,7 +40,8 @@ const FormUseReducer = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Form submitted successfully!");
+    setSubmittedData([...submittedData, formData]);
+    dispatch({ type: "RESET" });
   };
 
   return (
@@ -82,6 +84,7 @@ const FormUseReducer = () => {
                   value={fw}
                   onChange={handleChange}
                   className="accent-blue-600"
+                  checked={formData.framework === fw}
                 />
                 <span>{fw}</span>
               </label>
@@ -120,10 +123,36 @@ const FormUseReducer = () => {
         </button>
       </form>
 
-      {/* JSON Output */}
-      <pre className="mt-8 bg-white p-5 rounded-xl shadow-md w-full max-w-lg text-sm text-gray-700 whitespace-pre-wrap">
-        {JSON.stringify(formData, null, 2)}
-      </pre>
+      {/* Table to Show Submitted Data */}
+      {submittedData.length > 0 && (
+        <div className="mt-10 w-full max-w-lg">
+          <h3 className="text-lg font-semibold mb-3 text-blue-700">Submitted Data:</h3>
+          <table className="w-full border border-gray-300 text-left">
+            <thead className="bg-blue-200">
+              <tr>
+                <th className="border px-4 py-2">Name</th>
+                <th className="border px-4 py-2">Framework</th>
+                <th className="border px-4 py-2">City</th>
+              </tr>
+            </thead>
+            <tbody>
+              {submittedData.map((data, index) => (
+                <tr key={index} className="even:bg-blue-50">
+                  <td className="border px-4 py-2">{data.name}</td>
+                  <td className="border px-4 py-2">{data.framework}</td>
+                  <td className="border px-4 py-2">{data.city}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <button
+  onClick={() => dispatch({ type: "RESET" })}
+  className="mt-4 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
+>
+  Reset Form
+</button>
+        </div>
+      )}
     </div>
   );
 };

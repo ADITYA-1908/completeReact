@@ -75,6 +75,7 @@ const Home = () => {
         { label: "ApiFetch", to: "/api-fetch" },
         { label: "InputSearch", to: "/input-search" },
         { label: "DropDownSearch", to: "/dropdown-search" },
+        { label: "soting Data", to: "/sorting-data" },
       ],
     },
     {

@@ -1,7 +1,7 @@
 import { createContext } from "react";
-import UChild1 from "./UChild1";
 
-const Data = createContext(); //it contain 2 things consumer and producer 
+import UChild1 from "./UChild1";
+const Data = createContext();
 const Data1 = createContext();
 const UseContext = () => {
   const name = "Aditya";
@@ -13,9 +13,11 @@ const UseContext = () => {
           <UChild1 />
         </Data1.Provider>
       </Data.Provider>
+ 
     </>
   );
 };
 
 export default UseContext;
 export { Data, Data1 };
+
