@@ -1,4 +1,4 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Home from "./Topics/Home.jsx";
 
 //Props
@@ -57,7 +57,7 @@ import Todos from "./Topics/Redux/Components/TodoList/Todos.jsx";
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
 
@@ -116,7 +116,7 @@ function App() {
         <Route path="/todos" element={<Todos />} />
         <Route path="/counter" element={<Counter />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 

@@ -1,57 +1,108 @@
 import axios from "axios";
+import lodash from "lodash";
 import { useEffect, useState } from "react";
 
-const FetchAPIUE = () => {
+export default function FetchApiUE() {
   const [product, setProduct] = useState([]);
+  const [search, setSearch] = useState("");
+  const [sort, setSort] = useState([]);
+  const [category, setCategory] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  const fetchData = async () => {
+    try {
+      const res = await axios.get("https://fakestoreapi.com/products");
+      setProduct(res.data);
+      setSort(res.data);
+      const uniqueCategory = [
+        ...new Set(res.data.map((item) => item.category)),
+      ];
+      setCategory(uniqueCategory);
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get("https://fakestoreapi.com/products");
-        setProduct(res.data);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
     fetchData();
-  }, [product]);
+  }, []);
+
+  const searchData = sort.filter(
+    (item) =>
+      item.title.toLowerCase().includes(search.toLowerCase()) &&
+      (selectedCategory === "" || item.category === selectedCategory)
+  );
+
+  function handleSort(order) {
+    const sortData = lodash.orderBy(sort, ["price"], [order]);
+    setSort(sortData);
+  }
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Product List</h1>
+    <>
+      <div>
+        {/* Search box */}
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search..."
+        />
 
-      {product.length === 0 ? (
-        <p>Loading.....</p>
-      ) : (
-        <table className="table-auto border-collapse w-full border border-gray-400">
-          <thead>
-            <tr className="bg-gray-200">
-              <th className="border border-gray-400 px-4 py-2">ID</th>
-              <th className="border border-gray-400 px-4 py-2">Title</th>
-              <th className="border border-gray-400 px-4 py-2">Price</th>
-              <th className="border border-gray-400 px-4 py-2">Category</th>
-            </tr>
-          </thead>
-          <tbody>
-            {product.map((item) => (
-              <tr key={item.id}>
-                <td className="border border-gray-400 px-4 py-2">{item.id}</td>
-                <td className="border border-gray-400 px-4 py-2">
-                  {item.title}
-                </td>
-                <td className="border border-gray-400 px-4 py-2">
-                  ${item.price}
-                </td>
-                <td className="border border-gray-400 px-4 py-2">
-                  {item.category}
-                </td>
+        {/* Category dropdown */}
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+        >
+          <option value="">All Categories</option>
+          {category.map((item, index) => (
+            <option key={index} value={item}>
+              {item}
+            </option>
+          ))}
+        </select>
+
+        {/* Sort buttons */}
+        <button type="button" onClick={() => handleSort("asc")}>
+          Price ↑
+        </button>
+        <button type="button" onClick={() => handleSort("desc")}>
+          Price ↓
+        </button>
+
+        {/* Product table */}
+        {searchData.length <= 0 ? (
+          <h3>Loading...</h3>
+        ) : (
+          <table
+            style={{ borderCollapse: "collapse" }}
+            border="1"
+            cellPadding="5"
+          >
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Price</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
+            </thead>
+            <tbody>
+              {searchData.map((item, index) => {
+                const { id, title, category, price } = item;
+                return (
+                  <tr key={index}>
+                    <td>{id}</td>
+                    <td>{title}</td>
+                    <td>{category}</td>
+                    <td>${price}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
+      </div>
+    </>
   );
-};
-
-export default FetchAPIUE;
+}

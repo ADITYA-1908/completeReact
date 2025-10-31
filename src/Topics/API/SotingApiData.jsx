@@ -10,16 +10,15 @@ import {
 
 const SotingApiData = () => {
   const [product, setProduct] = useState([]);
-
+  const fetchProducts = async () => {
+    try {
+      const res = await axios.get("https://fakestoreapi.com/products");
+      setProduct(res.data);
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    }
+  };
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await axios.get("https://fakestoreapi.com/products");
-        setProduct(res.data);
-      } catch (error) {
-        console.error("Error fetching data:", error.message);
-      }
-    };
     fetchProducts();
   }, []);
 

@@ -2,7 +2,6 @@ import { useReducer } from "react";
 
 const IntUR = () => {
   const initialState = 0;
-
   function count(state, action) {
     switch (action) {
       case "increment":

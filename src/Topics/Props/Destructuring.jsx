@@ -1,4 +1,5 @@
-function Destructuring({ name, age, role }) {
+function Destructuring({ props}) {
+  let { name, age, role }=props
   return (
     <>
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 text-center px-4 gap-6">
